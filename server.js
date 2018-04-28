@@ -31,3 +31,7 @@ app.listen(PORT, function() {
 // Add API Routes
 app.use("/api/articles", articleAPI);
 app.use("/api/notes", noteAPI);
+
+app.get("*", function (req, res) {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+});
