@@ -12,6 +12,10 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// Add API Routes
+app.use("/api/articles", articleAPI);
+app.use("/api/notes", noteAPI);
+
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
@@ -28,10 +32,3 @@ app.listen(PORT, function() {
   console.log(`🌎 ==> Server now on port ${PORT}!`);
 });
 
-// Add API Routes
-app.use("/api/articles", articleAPI);
-app.use("/api/notes", noteAPI);
-
-app.get("*", function (req, res) {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});

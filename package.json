@@ -6,8 +6,7 @@
   "scripts": {
     "server": "node server.js",
     "client": "node scripts/start-client.js",
-    "run": "concurrently \"node server.js\" \"npm run client\"",
-    "dev": "concurrently \"nodemon server.js\" \"npm run client\"",
+    "run": "concurrently \"nodemon server.js\" \"npm run client\"",
     "build": "node scripts/build.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
