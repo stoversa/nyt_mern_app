@@ -1,1 +1,1 @@
-web: npm run server
+web: NODE_ENV=production node server.js
