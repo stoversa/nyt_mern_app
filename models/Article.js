@@ -2,10 +2,9 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const articleSchema = new Schema({
-  title: { type: String, required: true, unique: true },
-  author: { type: String, required: true, unique: false },
-  date: { type: Date, default: Date.now },
-  isSaved: { type: Boolean, default: false, required: true, unique: false},
+  title: { type: String, required: true},
+  url: { type: String, required: true },
+  date: { type: Date, required: false },
   // `note` is an object that stores a Note id
   // The ref property links the ObjectId to the Note model
   // This allows us to populate the Article with an associated Note

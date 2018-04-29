@@ -35,6 +35,14 @@ class Main extends Component {
       .catch(err => console.log(err));
   };
 
+  saveArticle = index => {
+    let article = this.state.searchedArticles[index];
+    console.log(article);
+    API.saveArticle(article)
+      .then(res => this.loadArticles())
+      .catch(err => console.log(err));
+  };
+
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -61,10 +69,7 @@ class Main extends Component {
             this.setState({
               searchedArticles: [...this.state.searchedArticles, newArticle]
             })
-            console.log(this.state.searchedArticles)
-            // console.log(`Title: ${article.headline.main} ; Date: ${article.pub_date} ; URL: ${article.web_url}`)
           })
-          // this.setState({ searchedArticles: res.data, term: "", startYear: "", endYear: "" })
         })
         .catch(err => console.log(err));
     }
@@ -113,14 +118,14 @@ class Main extends Component {
             </Jumbotron>
             {this.state.searchedArticles.length ? (
               <List>
-                {this.state.searchedArticles.map(article => (
+                {this.state.searchedArticles.map((article, index) => (
                   <ListItem key={article.title}>
                     <Link to={article.url}>
                       <strong>
                         {article.title}
                       </strong>
                     </Link>
-                    <SaveBtn/>
+                    <SaveBtn onClick={() => this.saveArticle(index)}/>
                   </ListItem>
                 ))}
               </List>
