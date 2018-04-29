@@ -1,14 +1,16 @@
 {
   "name": "mern",
   "version": "1.0.0",
-  "description": "NYT MERN App",
+  "description": "",
   "main": "server.js",
   "scripts": {
     "server": "node server.js",
     "client": "node scripts/start-client.js",
-    "run": "concurrently \"nodemon server.js\" \"npm run client\"",
+    "start": "concurrently \"nodemon server.js\" \"npm run client\"",
     "build": "node scripts/build.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "seed": "node scripts/seedDB.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "installDeps": "yarn && cd client && yarn"
   },
   "author": "",
   "license": "ISC",
@@ -17,9 +19,10 @@
     "nodemon": "^1.11.0"
   },
   "dependencies": {
+    "axios": "^0.16.2",
+    "body-parser": "^1.17.2",
     "express": "^4.15.4",
-    "mongoose": "^5.0.16",
-    "request": "^2.85.0",
-    "save": "^2.3.2"
+    "mongoose": "^5.0.11",
+    "react-router-dom": "^4.2.2"
   }
 }
