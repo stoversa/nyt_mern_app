@@ -2,9 +2,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const routes = require("./routes");
+
 const PORT = process.env.PORT || process.argv[2] || 3001;
 
-const app = express();
 // Configure body parser for AJAX requests
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -14,8 +14,8 @@ app.use(express.static("client/build"));
 app.use(routes);
 
 // Connect to the Mongo DB
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/nytHeadlines";
 mongoose.Promise = Promise;
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/nytHeadlines";
 mongoose.connect(MONGODB_URI);
 
 // Start the API server
