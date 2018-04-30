@@ -5,6 +5,13 @@ const Nav = () => (
     <a className="navbar-brand" href="/">
       NYT MERN Article Search
     </a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/saved">Saved</a>
+        </li>
+      </ul>
+    </div>
   </nav>
 );
 

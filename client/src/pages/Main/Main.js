@@ -114,7 +114,7 @@ class Main extends Component {
         <Row>
           <Col size="md-12">
             <Jumbotron>
-              <h1>Results</h1>
+              <h1>Search Results</h1>
             </Jumbotron>
             {this.state.searchedArticles.length ? (
               <List>
