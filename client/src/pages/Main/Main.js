@@ -143,7 +143,7 @@ class Main extends Component {
               <List>
                 {this.state.savedArticles.map(article => (
                   <ListItem key={article._id}>
-                    <Link to={"/articles/" + article._id}>
+                    <Link to={article.url}>
                       <strong>
                         {article.title}
                       </strong>
