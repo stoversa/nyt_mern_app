@@ -3,7 +3,6 @@ import DeleteBtn from "../../components/DeleteBtn";
 import SaveBtn from "../../components/SaveBtn";
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
-import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, FormBtn } from "../../components/Form";
@@ -120,11 +119,11 @@ class Main extends Component {
               <List>
                 {this.state.searchedArticles.map((article, index) => (
                   <ListItem key={article.title}>
-                    <Link to={article.url}>
+                    <a href={article.url} title={article.title} target="_blank">
                       <strong>
                         {article.title}
                       </strong>
-                    </Link>
+                    </a>
                     <SaveBtn onClick={() => this.saveArticle(index)}/>
                   </ListItem>
                 ))}
@@ -143,11 +142,11 @@ class Main extends Component {
               <List>
                 {this.state.savedArticles.map(article => (
                   <ListItem key={article._id}>
-                    <Link to={article.url}>
+                    <a href={article.url} title={article.title} target="_blank">
                       <strong>
                         {article.title}
                       </strong>
-                    </Link>
+                    </a>
                     <DeleteBtn onClick={() => this.deleteArticle(article._id)} />
                   </ListItem>
                 ))}
