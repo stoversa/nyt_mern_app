@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import DeleteBtn from "../../components/DeleteBtn";
 import SaveBtn from "../../components/SaveBtn";
 import Jumbotron from "../../components/Jumbotron";
+import Modal from "../../components/Modal";
 import API from "../../utils/API";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
@@ -13,11 +14,19 @@ class Main extends Component {
     savedArticles: [],
     term: "",
     startYear: "",
-    endYear: ""
+    endYear: "",
+    count: 0
   };
 
   componentDidMount() {
     this.loadArticles();
+  }
+
+  increment = () =>{
+    let newCount = this.state.count + 1;
+    this.setState({
+      count: newCount
+    })
   }
 
   loadArticles = () => {
@@ -53,22 +62,27 @@ class Main extends Component {
     event.preventDefault();
     if (this.state.term) {
       API.getArticles({
-        term: this.state.term,
-        startYear: this.state.startYear || '20170429',
-        endYear: this.state.endYear || '20180429'
+        term: this.state.term.trim(),
+        startYear: typeof this.state.startYear === "number" ? this.state.startYear : '20010429',
+        endYear: typeof this.state.endYear === "number" ? this.state.endYear : '20180429'
       })
         .then(res => {
           this.setState({ term: "", startYear: "", endYear: "" });
-            res.data.response.docs.forEach( article => {
-            let newArticle = {
-              title: article.headline.main,
-              date: article.pub_date,
-              url: article.web_url
-            }
-            this.setState({
-              searchedArticles: [...this.state.searchedArticles, newArticle]
+          if (res.data.response.docs.length > 1) {
+            res.data.response.docs.forEach(article => {
+              let newArticle = {
+                title: article.headline.main,
+                date: article.pub_date,
+                url: article.web_url
+              }
+              this.setState({
+                searchedArticles: [...this.state.searchedArticles, newArticle]
+              }) //
             })
-          })
+           }
+          else {
+            document.getElementById('errorModal').modal('toggle');
+          }
         })
         .catch(err => console.log(err));
     }
@@ -93,13 +107,13 @@ class Main extends Component {
                 value={this.state.startYear}
                 onChange={this.handleInputChange}
                 name="startYear"
-                placeholder="Start Date (optional)"
+                placeholder="Start Date (YYYYMMDD - optional)"
               />
               <Input
                 value={this.state.endYear}
                 onChange={this.handleInputChange}
                 name="endYear"
-                placeholder="End Date (optional)"
+                placeholder = "End Date (YYYYMMDD - optional)"
               />
               <FormBtn
                 disabled={!(this.state.term)}
@@ -118,7 +132,7 @@ class Main extends Component {
             {this.state.searchedArticles.length ? (
               <List>
                 {this.state.searchedArticles.map((article, index) => (
-                  <ListItem key={article.title}>
+                  <ListItem key={`${article.title}-${this.state.savedArticles.length}`}>
                     <a href={article.url} title={article.title} target="_blank">
                       <strong>
                         {article.title}
@@ -156,6 +170,7 @@ class Main extends Component {
               )}
           </Col>
         </Row>
+        < Modal />
       </Container>
     );
   }
